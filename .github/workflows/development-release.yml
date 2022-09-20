@@ -28,5 +28,5 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ steps.versioning.outputs.new_tag }}
-          name: Pre-release ${{ steps.versioning.outputs.new_version }}
+          name: ${{ steps.versioning.outputs.new_version }}
           generateReleaseNotes: true
