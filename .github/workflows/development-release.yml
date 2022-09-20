@@ -31,4 +31,3 @@ jobs:
           tag: ${{ steps.versioning.outputs.version }}
           name: Release ${{ steps.versioning.outputs.version }}
           generateReleaseNotes: true
-          token: ${{ secrets.YOUR_GITHUB_TOKEN }}
