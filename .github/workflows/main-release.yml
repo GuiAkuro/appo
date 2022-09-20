@@ -22,11 +22,11 @@ jobs:
         uses: mathieudutour/github-tag-action@v6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          pre_release_branches: "main"
+          release_branches: "main"
 
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ steps.versioning.outputs.new_tag }}
-          name: Pre-release ${{ steps.versioning.outputs.new_version }}
+          name: Release ${{ steps.versioning.outputs.new_version }}
           generateReleaseNotes: true
