@@ -2,11 +2,9 @@ name: Semantic CI
 
 on:
   push:
-    branches:
-      - development
+    branches: ["main", "development"]
   pull_request:
-    branches:
-      - development
+    branches: ["main", "development"]
 
 jobs:
   release:
@@ -22,11 +20,12 @@ jobs:
         uses: mathieudutour/github-tag-action@v6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          release_branches: "main"
           pre_release_branches: "development"
 
       - name: Create Release
         uses: ncipollo/release-action@v1
         with:
           tag: ${{ steps.versioning.outputs.new_tag }}
-          name: Pre-release ${{ steps.versioning.outputs.new_version }}
+          name: ${{ steps.versioning.outputs.new_version }}
           generateReleaseNotes: true
