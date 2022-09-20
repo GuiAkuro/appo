@@ -1,0 +1,34 @@
+name: Semantic CI
+
+on:
+  push:
+    branches:
+      - development
+  pull_request:
+    branches:
+      - development
+
+jobs:
+  release:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Semantic Versioning
+        id: versioning
+        uses: paulhatch/semantic-version@v4.0.2
+        with:
+          branch: main
+          major_pattern: "BREAKING CHANGE:"
+          minor_pattern: "feat:"
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.versioning.outputs.version }}
+          name: Release ${{ steps.versioning.outputs.version }}
+          generateReleaseNotes: true
+          token: ${{ secrets.YOUR_GITHUB_TOKEN }}
