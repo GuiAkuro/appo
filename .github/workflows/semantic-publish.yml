@@ -17,7 +17,7 @@ jobs:
 
       - name: Semantic Versioning
         id: versioning
-        uses: paulhatch/semantic-versioning@v4.0.2
+        uses: paulhatch/semantic-version@v4.0.2
         with:
           branch: main
           major_pattern: "BREAKING CHANGE:"
