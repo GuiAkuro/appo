@@ -26,12 +26,8 @@ jobs:
           minor_pattern: "feat:"
 
       - name: Create Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: ncipollo/release-action@v1
         with:
-          tag_name: ${{ steps.versioning.outputs.version }}
-          release_name: Release ${{ steps.versioning.outputs.version }}
-          body: ${{ steps.versioning.outputs.changed }}
-          draft: false
-          prerelease: false
+          tag: ${{ steps.versioning.outputs.version }}
+          name: Release ${{ steps.versioning.outputs.version }}
+          generateReleaseNotes: true

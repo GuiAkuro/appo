@@ -31,3 +31,4 @@ jobs:
           tag: ${{ steps.versioning.outputs.version }}
           name: Release ${{ steps.versioning.outputs.version }}
           generateReleaseNotes: true
+          prerelease: true
