@@ -1,0 +1,33 @@
+name: Semantic CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutos: 15
+    steps:
+      - name: Checkout
+      uses: actions/checkout@v2
+      
+      - name: Semantic Versioning
+      uses: paulhatch/semantic-versioning@v4.0.2
+      with:
+        branch: main
+        major_pattern: "BREAKING CHANGE:"
+        minor_pattern: "feat:"
+
+      - name: Create Release
+      uses: actions/create-release@v1
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: false
+        prerelease: false
+
