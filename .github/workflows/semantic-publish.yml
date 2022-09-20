@@ -9,28 +9,27 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
+  release:
+    runs-on: "ubuntu-latest"
     steps:
       - name: Checkout
-      uses: actions/checkout@v2
-      
+        uses: actions/checkout@v2
+
       - name: Semantic Versioning
-      id: versioning
-      uses: paulhatch/semantic-versioning@v4.0.2
-      with:
-        branch: main
-        major_pattern: "BREAKING CHANGE:"
-        minor_pattern: "feat:"
+        id: versioning
+        uses: paulhatch/semantic-versioning@v4.0.2
+        with:
+          branch: main
+          major_pattern: "BREAKING CHANGE:"
+          minor_pattern: "feat:"
 
       - name: Create Release
-      uses: actions/create-release@v1
-      env:
+        uses: actions/create-release@v1
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ steps.versioning.outputs.version }}
-        release_name: Release ${{ steps.versioning.outputs.version }}
-        draft: false
-        prerelease: false
-
+        with:
+          tag_name: ${{ steps.versioning.outputs.version }}
+          release_name: Release ${{ steps.versioning.outputs.version }}
+          body: ${{ steps.versioning.outputs.changed }}
+          draft: false
+          prerelease: false
